@@ -8,294 +8,668 @@
 <!-- CSS -->
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-<script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
+
+<style>
+/* --- RESET --- */
+html {
+    scroll-behavior: smooth;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* --- REVEAL --- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  
+  .service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+  .article-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  }
+
+  /* --- NAV --- */
+  .nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    color: #475569;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #C5A059;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  .nav-link:hover {
+    color: #C5A059;
+  }
+
+  /* --- LIKE BUTTON --- */
+  .like-button {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .like-button:hover {
+    background: #f0ece4;
+  }
+  .like-button.liked {
+    background: #fde8e8;
+    border-color: #e74c3c;
+  }
+  .like-button.liked .heart-icon {
+    color: #e74c3c;
+    fill: #e74c3c;
+  }
+
+  /* --- GOLD RULE --- */
+  .gold-rule {
+    width: 60px;
+    height: 3px;
+    background: #C5A059;
+  }
+
+  /* --- LANGUAGE TOGGLE --- */
+  .language-active {
+    background: #1A2B3C;
+    color: white;
+  }
+  .language-inactive {
+    background: transparent;
+    color: #1A2B3C;
+  }
+  .language-inactive:hover {
+    background: #e8e6e1;
+  }
+
+  /* --- INPUTS --- */
+  .input-field {
+    border: 1px solid #d1d5db;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  .input-field:focus {
+    border-color: #C5A059;
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+  }
+
+  /* --- CTA --- */
+  .cta {
+    transition: all 0.3s ease;
+  }
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.3);
+  }
+
+  /* --- SCROLL TOP --- */
+  #scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background: #C5A059;
+    color: #1A2B3C;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  #scroll-top:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  /* --- IMMERSION IMAGE --- */
+  #business-immersion img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  #business-immersion img:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (max-width: 768px) {
+    .py-20 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+</style>
 </head>
 <body>
+
 <div class="site-shell">
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-[#F8F9FA]/95 backdrop-blur">
-<nav aria-label="Primary navigation" class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-<a href="#top" class="flex items-center gap-3 no-underline">
-<span class="flex h-10 w-10 items-center justify-center border border-[#C5A059] text-sm font-bold text-[#C5A059]">AS</span>
-<span class="leading-tight">
-<span class="block text-sm font-bold tracking-[.15em] text-[#1A2B3C]">ANNA SHAIMARDANOVA</span>
-<span class="block text-[10px] uppercase tracking-[.16em] text-slate-500">RFL · Business Culture</span>
-</span>
-</a>
-<div class="desktop-nav flex items-center gap-6 text-xs font-semibold uppercase tracking-[.11em] text-slate-600">
-<a class="nav-link" href="#about"><span class="lang-en">About</span><span class="lang-ru">Обо мне</span></a>
-<a class="nav-link" href="#services"><span class="lang-en">Services</span><span class="lang-ru">Услуги</span></a>
-<a class="nav-link" href="#insights"><span class="lang-en">Insights</span><span class="lang-ru">Статьи</span></a>
-<a class="nav-link" href="#contact"><span class="lang-en">Contact</span><span class="lang-ru">Контакты</span></a>
-</div>
-<div class="flex rounded-sm border border-slate-300 p-1 text-xs font-bold tracking-[.12em]">
-<button id="en-btn" type="button" class="language-active rounded-sm px-3 py-2" aria-pressed="true">EN</button>
-<button id="ru-btn" type="button" class="language-inactive rounded-sm px-3 py-2" aria-pressed="false">RU</button>
-</div>
-</nav>
-</header>
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-[#F8F9FA]/95 backdrop-blur">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="#top" class="flex items-center gap-3 no-underline">
+        <span class="flex h-10 w-10 items-center justify-center border border-[#C5A059] text-sm font-bold text-[#C5A059]">AS</span>
+        <span class="leading-tight">
+          <span class="block text-sm font-bold tracking-[.15em] text-[#1A2B3C]">ANNA SHAIMARDANOVA</span>
+          <span class="block text-[10px] uppercase tracking-[.16em] text-slate-500">RFL · Business Culture</span>
+        </span>
+      </a>
+      <div class="desktop-nav flex items-center gap-6 text-xs font-semibold uppercase tracking-[.11em] text-slate-600">
+        <a class="nav-link" href="#about"><span class="lang-en">About</span><span class="lang-ru">Обо мне</span></a>
+        <a class="nav-link" href="#services"><span class="lang-en">Services</span><span class="lang-ru">Услуги</span></a>
+        <a class="nav-link" href="#insights"><span class="lang-en">Insights</span><span class="lang-ru">Статьи</span></a>
+        <a class="nav-link" href="#business-immersion"><span class="lang-en">Immersion</span><span class="lang-ru">Иммерсия</span></a>
+        <a class="nav-link" href="#contact"><span class="lang-en">Contact</span><span class="lang-ru">Контакты</span></a>
+      </div>
+      <div class="flex rounded-sm border border-slate-300 p-1 text-xs font-bold tracking-[.12em]">
+        <button id="en-btn" type="button" class="language-active rounded-sm px-3 py-2">EN</button>
+        <button id="ru-btn" type="button" class="language-inactive rounded-sm px-3 py-2">RU</button>
+      </div>
+    </nav>
+  </header>
 
-<main id="top">
+  <main>
 
-<!-- HERO SECTION -->
-<section class="relative bg-[#1A2B3C]">
-<div class="mx-auto grid max-w-7xl items-stretch lg:grid-cols-[1.08fr_.92fr]">
-<div class="flex min-h-[540px] flex-col justify-center px-6 py-20 lg:px-12">
-<div class="gold-rule mb-7"></div>
-<p class="lang-en mb-5 text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Russian language · business culture</p>
-<p class="lang-ru mb-5 text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Русский язык · бизнес-культура</p>
-<h1 class="serif lang-en max-w-2xl text-4xl font-medium leading-tight text-[#F8F9FA] md:text-5xl">Unlock Your Business Potential in Russia.</h1>
-<h1 class="serif lang-ru max-w-2xl text-4xl font-medium leading-tight text-[#F8F9FA] md:text-5xl">Раскройте свой бизнес-потенциал в России!</h1>
-<p class="lang-en mt-7 max-w-xl text-base leading-8 text-slate-300">Don't let language barriers hold you back. With my expertise, you'll navigate Russia's business landscape with confidence. Let's achieve your goals together!</p>
-<p class="lang-ru mt-7 max-w-xl text-base leading-8 text-slate-300">Не дайте языковым барьерам остановить вас. С моей помощью вы уверенно преодолеете российский бизнес-ландшафт. Давайте достигнем ваших целей вместе!</p>
-<a href="#contact" class="cta lang-en mt-9 inline-flex w-fit items-center gap-3 bg-[#C5A059] px-6 py-4 text-xs font-bold uppercase tracking-[.14em] text-[#1A2B3C]">Contact for consultation</a>
-<a href="#contact" class="cta lang-ru mt-9 inline-flex w-fit items-center gap-3 bg-[#C5A059] px-6 py-4 text-xs font-bold uppercase tracking-[.10em] text-[#1A2B3C]">Записаться на консультацию</a>
-</div>
-<div class="relative min-h-[410px] overflow-hidden">
-<!-- IMAGE 1: HERO IMAGE - REPLACE WITH YOUR FILE -->
-<img loading="lazy" class="" src="ahha pic 2.jpg" alt="Anna Shaimardanova">
-<div class="absolute inset-0 bg-gradient-to-t from-[#1A2B3C]/45 to-transparent"></div>
-<div class="absolute bottom-7 left-7 border-l-2 border-[#C5A059] pl-4 text-[#F8F9FA]">
-<p class="lang-en text-xs font-semibold uppercase tracking-[.15em]">Language as strategic capital</p>
-<p class="lang-ru text-xs font-semibold uppercase tracking-[.12em]">Язык как стратегический капитал</p>
-</div>
-</div>
-</div>
-</section>
+    <!-- HERO -->
+    <section class="relative bg-[#1A2B3C]">
+      <div class="mx-auto grid max-w-7xl items-stretch lg:grid-cols-[1.08fr_.92fr]">
+        <div class="flex min-h-[540px] flex-col justify-center px-6 py-20 lg:px-12">
+          <div class="gold-rule mb-7"></div>
+          <p class="lang-en mb-5 text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Russian language · business culture</p>
+          <p class="lang-ru mb-5 text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Русский язык · бизнес-культура</p>
+          <h1 class="serif lang-en max-w-2xl text-4xl font-medium leading-tight text-[#F8F9FA] md:text-5xl">Unlock Your Business Potential in Russia.</h1>
+          <h1 class="serif lang-ru max-w-2xl text-4xl font-medium leading-tight text-[#F8F9FA] md:text-5xl">Раскройте свой бизнес-потенциал в России!</h1>
+          <p class="lang-en mt-7 max-w-xl text-base leading-8 text-slate-300">Don't let language barriers hold you back. With my expertise, you'll navigate Russia's business landscape with confidence. Let's achieve your goals together!</p>
+          <p class="lang-ru mt-7 max-w-xl text-base leading-8 text-slate-300">Не дайте языковым барьерам остановить вас. С моей помощью вы уверенно преодолеете российский бизнес-ландшафт. Давайте достигнем ваших целей вместе!</p>
+          <a href="#contact" class="cta lang-en mt-9 inline-flex w-fit items-center gap-3 bg-[#C5A059] px-6 py-4 text-xs font-bold uppercase tracking-[.14em] text-[#1A2B3C]">Contact for consultation</a>
+          <a href="#contact" class="cta lang-ru mt-9 inline-flex w-fit items-center gap-3 bg-[#C5A059] px-6 py-4 text-xs font-bold uppercase tracking-[.10em] text-[#1A2B3C]">Записаться на консультацию</a>
+        </div>
+        <div class="relative min-h-[410px] overflow-hidden">
+          <img loading="lazy" src="ahha pic 2.jpg" alt="Anna Shaimardanova">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A2B3C]/45 to-transparent"></div>
+          <div class="absolute bottom-7 left-7 border-l-2 border-[#C5A059] pl-4 text-[#F8F9FA]">
+            <p class="lang-en text-xs font-semibold uppercase tracking-[.15em]">Language as strategic capital</p>
+            <p class="lang-ru text-xs font-semibold uppercase tracking-[.12em]">Язык как стратегический капитал</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- ABOUT SECTION -->
-<section id="about" class="bg-[#F8F9FA] py-20 lg:py-28">
-<div class="reveal mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
-<div class="relative">
-<!-- IMAGE 2: ABOUT IMAGE - REPLACE WITH YOUR FILE -->
-<img loading="lazy" class="h-full min-h-[390px] w-full object-cover" src="ahha best 3.jpg" alt="Anna Shaimardanova with client">
-<div class="absolute bottom-0 right-0 bg-[#C5A059] px-6 py-5 text-[#1A2B3C]">
-<p class="lang-en text-xs font-bold uppercase tracking-[.13em]">Academic excellence</p>
-<p class="lang-ru text-xs font-bold uppercase tracking-[.10em]">Академическое мастерство</p>
-</div>
-</div>
-<div class="flex flex-col justify-center">
-<p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">About Anna</p>
-<p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Об Анне</p>
-<h2 class="serif lang-en mt-4 text-4xl font-medium leading-tight text-[#1A2B3C]">Precision in language. Confidence in culture.</h2>
-<h2 class="serif lang-ru mt-4 text-4xl font-medium leading-tight text-[#1A2B3C]">Точность в языке. Уверенность в культуре.</h2>
-<div class="gold-rule mt-6"></div>
-<p class="lang-en mt-7 max-w-2xl text-base leading-8 text-[#4A5568]">I specialize in teaching Russian language, business communication, and academic writing to adult foreigners. My expertise helps expats adapt to Russian business realities, overcome cultural misunderstandings, and master Russian language techniques for influence and persuasion. RFL instructor at UrSEU and UrGUPS for international students from Africa, Asia, South America, China, South Korea, and Vietnam. Specialist in "Fundamentals of Scientific and Business Speech." Fluent in English and Russian.</p>
-<p class="lang-ru mt-7 max-w-2xl text-base leading-8 text-[#4A5568]">Помогу адаптироваться экспатам в российских бизнес-реалиях, сниму все межкультурные недопонимания и обучу российским языковым методам влияния и убеждения. Преподаватель РКИ в УрГЭУ и УрГУПС для иностранных студентов из стран Африки, Азии, Южной Америки, Китая, Южной Кореи, Вьетнама. Специалист по «Основам научной и деловой речи». Владею английским и русским языками.</p>
-<div class="mt-9 grid gap-4 sm:grid-cols-2">
-<div class="border-l-2 border-[#C5A059] pl-4">
-<p class="lang-en text-sm font-bold text-[#1A2B3C]">RFL Instructor · UrSEU &amp; UrGUPS</p>
-<p class="lang-ru text-sm font-bold text-[#1A2B3C]">Преподаватель РКИ · УрГЭУ и УрГУПС</p>
-</div>
-<div class="border-l-2 border-[#C5A059] pl-4">
-<p class="lang-en text-sm font-bold text-[#1A2B3C]">English &amp; Russian fluency</p>
-<p class="lang-ru text-sm font-bold text-[#1A2B3C]">Свободное владение английским и русским</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- ABOUT -->
+    <section id="about" class="bg-[#F8F9FA] py-20 lg:py-28">
+      <div class="reveal mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
+        <div class="relative">
+          <img loading="lazy" class="h-full min-h-[390px] w-full object-cover" src="ahha best 3.jpg" alt="Anna Shaimardanova with client">
+          <div class="absolute bottom-0 right-0 bg-[#C5A059] px-6 py-5 text-[#1A2B3C]">
+            <p class="lang-en text-xs font-bold uppercase tracking-[.13em]">Academic excellence</p>
+            <p class="lang-ru text-xs font-bold uppercase tracking-[.10em]">Академическое мастерство</p>
+          </div>
+        </div>
+        <div class="flex flex-col justify-center">
+          <p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">About Anna</p>
+          <p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Об Анне</p>
+          <h2 class="serif lang-en mt-4 text-4xl font-medium leading-tight text-[#1A2B3C]">Precision in language. Confidence in culture.</h2>
+          <h2 class="serif lang-ru mt-4 text-4xl font-medium leading-tight text-[#1A2B3C]">Точность в языке. Уверенность в культуре.</h2>
+          <div class="gold-rule mt-6"></div>
+          <p class="lang-en mt-7 max-w-2xl text-base leading-8 text-[#4A5568]">I specialize in teaching Russian language, business communication, and academic writing to adult foreigners. My expertise helps expats adapt to Russian business realities, overcome cultural misunderstandings, and master Russian language techniques for influence and persuasion. RFL instructor at UrSEU and UrGUPS for international students from Africa, Asia, South America, China, South Korea, and Vietnam. Specialist in "Fundamentals of Scientific and Business Speech." Fluent in English and Russian.</p>
+          <p class="lang-ru mt-7 max-w-2xl text-base leading-8 text-[#4A5568]">Помогу адаптироваться экспатам в российских бизнес-реалиях, сниму все межкультурные недопонимания и обучу российским языковым методам влияния и убеждения. Преподаватель РКИ в УрГЭУ и УрГУПС для иностранных студентов из стран Африки, Азии, Южной Америки, Китая, Южной Кореи, Вьетнама. Специалист по «Основам научной и деловой речи». Владею английским и русским языками.</p>
+          <div class="mt-9 grid gap-4 sm:grid-cols-2">
+            <div class="border-l-2 border-[#C5A059] pl-4">
+              <p class="lang-en text-sm font-bold text-[#1A2B3C]">RFL Instructor · UrSEU &amp; UrGUPS</p>
+              <p class="lang-ru text-sm font-bold text-[#1A2B3C]">Преподаватель РКИ · УрГЭУ и УрГУПС</p>
+            </div>
+            <div class="border-l-2 border-[#C5A059] pl-4">
+              <p class="lang-en text-sm font-bold text-[#1A2B3C]">English &amp; Russian fluency</p>
+              <p class="lang-ru text-sm font-bold text-[#1A2B3C]">Свободное владение английским и русским</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- SERVICES SECTION -->
-<section id="services" class="bg-white py-20 lg:py-28">
-<div class="reveal mx-auto max-w-7xl px-6 lg:px-8">
-<div class="max-w-2xl">
-<p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Expert solutions</p>
-<p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Экспертные решения</p>
-<h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">My Services</h2>
-<h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Мои услуги</h2>
-</div>
-<div class="mt-12 grid gap-5 md:grid-cols-2">
-<article class="service-card bg-[#F8F9FA] p-8">
-<span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">01</span>
-<h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Russian Language Courses for Business and Diplomacy</h3>
-<h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Курсы русского языка для бизнеса и дипломатии</h3>
-</article>
-<article class="service-card bg-[#F8F9FA] p-8">
-<span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">02</span>
-<h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Business Communication Training for Foreigners in Russia</h3>
-<h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Тренинг по бизнес-коммуникации для иностранцев в России</h3>
-</article>
-<article class="service-card bg-[#F8F9FA] p-8">
-<span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">03</span>
-<h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Intercultural Communication Coaching</h3>
-<h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Коучинг по межкультурной коммуникации</h3>
-</article>
-<article class="service-card bg-[#F8F9FA] p-8">
-<span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">04</span>
-<h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Special Course: Business Communication for Foreigners in Russia</h3>
-<h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Спецкурс: Бизнес-коммуникация для иностранцев в России</h3>
-</article>
-</div>
-<p class="lang-en mt-8 text-sm italic text-[#4A5568]">To inquire about pricing and schedule, please contact me directly.</p>
-<p class="lang-ru mt-8 text-sm italic text-[#4A5568]">Чтобы узнать о ценах и расписании, свяжитесь со мной напрямую.</p>
-</div>
-</section>
+    <!-- SERVICES -->
+    <section id="services" class="bg-white py-20 lg:py-28">
+      <div class="reveal mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Expert solutions</p>
+          <p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Экспертные решения</p>
+          <h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">My Services</h2>
+          <h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Мои услуги</h2>
+        </div>
+        <div class="mt-12 grid gap-5 md:grid-cols-2">
+          <article class="service-card bg-[#F8F9FA] p-8">
+            <span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">01</span>
+            <h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Russian Language Courses for Business and Diplomacy</h3>
+            <h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Курсы русского языка для бизнеса и дипломатии</h3>
+          </article>
+          <article class="service-card bg-[#F8F9FA] p-8">
+            <span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">02</span>
+            <h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Business Communication Training for Foreigners in Russia</h3>
+            <h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Тренинг по бизнес-коммуникации для иностранцев в России</h3>
+          </article>
+          <article class="service-card bg-[#F8F9FA] p-8">
+            <span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">03</span>
+            <h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Intercultural Communication Coaching</h3>
+            <h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Коучинг по межкультурной коммуникации</h3>
+          </article>
+          <article class="service-card bg-[#F8F9FA] p-8">
+            <span class="mb-8 block text-xs font-bold tracking-[.15em] text-[#C5A059]">04</span>
+            <h3 class="lang-en text-xl font-bold leading-snug text-[#1A2B3C]">Special Course: Business Communication for Foreigners in Russia</h3>
+            <h3 class="lang-ru text-xl font-bold leading-snug text-[#1A2B3C]">Спецкурс: Бизнес-коммуникация для иностранцев в России</h3>
+          </article>
+        </div>
+        <p class="lang-en mt-8 text-sm italic text-[#4A5568]">To inquire about pricing and schedule, please contact me directly.</p>
+        <p class="lang-ru mt-8 text-sm italic text-[#4A5568]">Чтобы узнать о ценах и расписании, свяжитесь со мной напрямую.</p>
+      </div>
+    </section>
 
-<!-- INSIGHTS SECTION -->
-<section id="insights" class="bg-[#F8F9FA] py-20 lg:py-28">
-<div class="reveal mx-auto max-w-7xl px-6 lg:px-8">
-<p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Journal</p>
-<p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Журнал</p>
-<h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">Business language insights</h2>
-<h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Заметки о деловом языке</h2>
-<div class="mt-12 grid gap-6 lg:grid-cols-3">
+    <!-- INSIGHTS -->
+    <section id="insights" class="bg-[#F8F9FA] py-20 lg:py-28">
+      <div class="reveal mx-auto max-w-7xl px-6 lg:px-8">
+        <p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Journal</p>
+        <p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Журнал</p>
+        <h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">Business language insights</h2>
+        <h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Заметки о деловом языке</h2>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
 
-<!-- Post 1 -->
-<article class="article-card bg-white p-7">
-<p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Business etiquette</p>
-<h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Why formality still matters in Russian business communication</h3>
-<h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Почему формальность всё ещё важна в российской деловой коммуникации</h3>
-<p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">The right register signals respect, competence, and a genuine understanding of context.</p>
-<p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Правильный речевой регистр демонстрирует уважение, компетентность и понимание контекста.</p>
-<div class="mt-7 flex items-center gap-3">
-<button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-1">
-<i data-lucide="heart" class="h-4 w-4"></i><span class="like-count">0</span>
-</button>
-<button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-1">Comment</button>
-<button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-1">Комментировать</button>
-</div>
-<form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-1">
-<label class="sr-only" for="comment-name-1">Name</label>
-<input id="comment-name-1" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="text" placeholder="Name">
-<label class="sr-only" for="comment-email-1">Email</label>
-<input id="comment-email-1" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="email" placeholder="Email">
-<label class="sr-only" for="comment-content-1">Comment</label>
-<textarea id="comment-content-1" required class="input-field mb-3 w-full px-3 py-2 text-sm" rows="3" placeholder="Comment"></textarea>
-<button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
-<p class="form-feedback mt-3 text-xs text-[#4A5568]" aria-live="polite"></p>
-</form>
-<div class="post-comments mt-6 space-y-3" data-comments="post-1"></div>
-</article>
+          <!-- POST 1 -->
+          <article class="article-card bg-white p-7">
+            <p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Business etiquette</p>
+            <h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Why formality still matters in Russian business communication</h3>
+            <h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Почему формальность всё ещё важна в российской деловой коммуникации</h3>
+            <p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">The right register signals respect, competence, and a genuine understanding of context.</p>
+            <p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Правильный речевой регистр демонстрирует уважение, компетентность и понимание контекста.</p>
+            <div class="mt-7 flex items-center gap-3">
+              <button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-1">
+                <svg class="heart-icon h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span class="like-count">0</span>
+              </button>
+              <button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-1">Comment</button>
+              <button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-1">Комментировать</button>
+            </div>
+            <form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-1">
+              <input id="comment-name-1" class="input-field mb-3" type="text" placeholder="Name">
+              <input id="comment-email-1" class="input-field mb-3" type="email" placeholder="Email">
+              <textarea id="comment-content-1" class="input-field mb-3" rows="3" placeholder="Comment"></textarea>
+              <button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
+              <p class="form-feedback mt-3 text-xs text-[#4A5568]"></p>
+            </form>
+            <div class="post-comments mt-6 space-y-3" data-comments="post-1"></div>
+          </article>
 
-<!-- Post 2 -->
-<article class="article-card bg-white p-7">
-<p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Intercultural intelligence</p>
-<h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Beyond translation: reading the unspoken cultural context</h3>
-<h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">За пределами перевода: как читать невысказанный культурный контекст</h3>
-<p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">Successful adaptation relies on recognising what a conversation implies as much as what it says.</p>
-<p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Успешная адаптация зависит от способности распознавать не только сказанное, но и подразумеваемое.</p>
-<div class="mt-7 flex items-center gap-3">
-<button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-2">
-<i data-lucide="heart" class="h-4 w-4"></i><span class="like-count">0</span>
-</button>
-<button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-2">Comment</button>
-<button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-2">Комментировать</button>
-</div>
-<form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-2">
-<label class="sr-only" for="comment-name-2">Name</label>
-<input id="comment-name-2" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="text" placeholder="Name">
-<label class="sr-only" for="comment-email-2">Email</label>
-<input id="comment-email-2" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="email" placeholder="Email">
-<label class="sr-only" for="comment-content-2">Comment</label>
-<textarea id="comment-content-2" required class="input-field mb-3 w-full px-3 py-2 text-sm" rows="3" placeholder="Comment"></textarea>
-<button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
-<p class="form-feedback mt-3 text-xs text-[#4A5568]" aria-live="polite"></p>
-</form>
-<div class="post-comments mt-6 space-y-3" data-comments="post-2"></div>
-</article>
+          <!-- POST 2 -->
+          <article class="article-card bg-white p-7">
+            <p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Intercultural intelligence</p>
+            <h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Beyond translation: reading the unspoken cultural context</h3>
+            <h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">За пределами перевода: как читать невысказанный культурный контекст</h3>
+            <p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">Successful adaptation relies on recognising what a conversation implies as much as what it says.</p>
+            <p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Успешная адаптация зависит от способности распознавать не только сказанное, но и подразумеваемое.</p>
+            <div class="mt-7 flex items-center gap-3">
+              <button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-2">
+                <svg class="heart-icon h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span class="like-count">0</span>
+              </button>
+              <button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-2">Comment</button>
+              <button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-2">Комментировать</button>
+            </div>
+            <form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-2">
+              <input id="comment-name-2" class="input-field mb-3" type="text" placeholder="Name">
+              <input id="comment-email-2" class="input-field mb-3" type="email" placeholder="Email">
+              <textarea id="comment-content-2" class="input-field mb-3" rows="3" placeholder="Comment"></textarea>
+              <button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
+              <p class="form-feedback mt-3 text-xs text-[#4A5568]"></p>
+            </form>
+            <div class="post-comments mt-6 space-y-3" data-comments="post-2"></div>
+          </article>
 
-<!-- Post 3 -->
-<article class="article-card bg-white p-7">
-<p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Professional Russian</p>
-<h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">The language of influence: communicating with clarity and authority</h3>
-<h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Язык влияния: как говорить ясно и авторитетно</h3>
-<p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">Strategic vocabulary and structure can make complex messages persuasive and memorable.</p>
-<p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Стратегический словарь и структура делают сложные сообщения убедительными и запоминающимися.</p>
-<div class="mt-7 flex items-center gap-3">
-<button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-3">
-<i data-lucide="heart" class="h-4 w-4"></i><span class="like-count">0</span>
-</button>
-<button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-3">Comment</button>
-<button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-3">Комментировать</button>
-</div>
-<form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-3">
-<label class="sr-only" for="comment-name-3">Name</label>
-<input id="comment-name-3" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="text" placeholder="Name">
-<label class="sr-only" for="comment-email-3">Email</label>
-<input id="comment-email-3" required class="input-field mb-3 w-full px-3 py-2 text-sm" type="email" placeholder="Email">
-<label class="sr-only" for="comment-content-3">Comment</label>
-<textarea id="comment-content-3" required class="input-field mb-3 w-full px-3 py-2 text-sm" rows="3" placeholder="Comment"></textarea>
-<button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
-<p class="form-feedback mt-3 text-xs text-[#4A5568]" aria-live="polite"></p>
-</form>
-<div class="post-comments mt-6 space-y-3" data-comments="post-3"></div>
-</article>
+          <!-- POST 3 -->
+          <article class="article-card bg-white p-7">
+            <p class="text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Professional Russian</p>
+            <h3 class="lang-en mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">The language of influence: communicating with clarity and authority</h3>
+            <h3 class="lang-ru mt-4 text-xl font-bold leading-snug text-[#1A2B3C]">Язык влияния: как говорить ясно и авторитетно</h3>
+            <p class="lang-en mt-4 text-sm leading-6 text-[#4A5568]">Strategic vocabulary and structure can make complex messages persuasive and memorable.</p>
+            <p class="lang-ru mt-4 text-sm leading-6 text-[#4A5568]">Стратегический словарь и структура делают сложные сообщения убедительными и запоминающимися.</p>
+            <div class="mt-7 flex items-center gap-3">
+              <button class="like-button inline-flex items-center gap-2 border border-[#C5A059] px-3 py-2 text-xs font-bold text-[#1A2B3C]" type="button" data-post="post-3">
+                <svg class="heart-icon h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span class="like-count">0</span>
+              </button>
+              <button class="lang-en text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" type="button" data-comment-toggle="post-3">Comment</button>
+              <button class="lang-ru text-xs font-bold uppercase tracking-[.08em] text-[#1A2B3C]" type="button" data-comment-toggle="post-3">Комментировать</button>
+            </div>
+            <form class="comment-box mt-6 border-t border-slate-200 pt-5" data-comment-form="post-3">
+              <input id="comment-name-3" class="input-field mb-3" type="text" placeholder="Name">
+              <input id="comment-email-3" class="input-field mb-3" type="email" placeholder="Email">
+              <textarea id="comment-content-3" class="input-field mb-3" rows="3" placeholder="Comment"></textarea>
+              <button class="bg-[#1A2B3C] px-4 py-2 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Submit comment</button>
+              <p class="form-feedback mt-3 text-xs text-[#4A5568]"></p>
+            </form>
+            <div class="post-comments mt-6 space-y-3" data-comments="post-3"></div>
+          </article>
 
-</div>
-</div>
-</section>
+        </div>
+      </div>
+    </section>
 
-<!-- CONTACT SECTION -->
-<section id="contact" class="bg-white py-20 lg:py-28">
-<div class="reveal mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.78fr_1.22fr] lg:px-8">
-<div>
-<p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Begin the conversation</p>
-<p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Начните разговор</p>
-<h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">Contact Me</h2>
-<h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Контакты</h2>
-<p class="lang-en mt-6 max-w-md leading-7 text-[#4A5568]">Tell me about your goals, team, or upcoming transition to Russia. I will respond personally.</p>
-<p class="lang-ru mt-6 max-w-md leading-7 text-[#4A5568]">Расскажите о ваших целях, команде или предстоящем переезде в Россию. Я отвечу лично.</p>
-<div class="mt-9 space-y-5">
-<a href="tel:+79126351177" class="flex items-center gap-3 text-sm font-semibold text-[#1A2B3C]">
-<i data-lucide="phone" class="h-5 w-5 text-[#C5A059]"></i>+7 912 635 11 77
-</a>
-<a href="mailto:morozovanna@list.ru" class="flex items-center gap-3 text-sm font-semibold text-[#1A2B3C]">
-<i data-lucide="mail" class="h-5 w-5 text-[#C5A059]"></i>morozovanna@list.ru
-</a>
-</div>
-</div>
-<form id="contact-form" class="border border-slate-200 bg-[#F8F9FA] p-7 lg:p-9">
-<div class="grid gap-5 md:grid-cols-2">
-<div>
-<label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-name">Name</label>
-<label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-name">Имя</label>
-<input id="contact-name" required class="input-field w-full px-4 py-3 text-sm" type="text">
-</div>
-<div>
-<label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-email">Email</label>
-<label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-email">Электронная почта</label>
-<input id="contact-email" required class="input-field w-full px-4 py-3 text-sm" type="email">
-</div>
-<div class="md:col-span-2">
-<label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-message">How can I help?</label>
-<label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-message">Чем я могу помочь?</label>
-<textarea id="contact-message" required rows="5" class="input-field w-full px-4 py-3 text-sm"></textarea>
-</div>
-</div>
-<div class="mt-6 flex items-center gap-4">
-<button class="cta lang-en bg-[#1A2B3C] px-6 py-4 text-xs font-bold uppercase tracking-[.13em] text-white" type="submit">Send enquiry</button>
-<button class="cta lang-ru bg-[#1A2B3C] px-6 py-4 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Отправить запрос</button>
-<p id="contact-status" class="status-message text-sm text-[#4A5568]" aria-live="polite"></p>
-</div>
-</form>
-</div>
-</section>
+    <!-- BUSINESS IMMERSION -->
+    <section id="business-immersion" class="bg-white py-20 lg:py-28 border-t border-[#C5A059]/20">
+      <div class="reveal mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Upcoming Practical Module</p>
+          <p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Предстоящий практический модуль</p>
+          <h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">Business Immersion 2026</h2>
+          <h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Бизнес-иммерсия 2026</h2>
+        </div>
+        <div class="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <img loading="lazy" class="mb-6 w-full rounded-sm shadow-md border border-slate-200" src="ahhas flyer last.png" alt="Business Immersion 2026 Flyer">
+          </div>
+          <div>
+            <p class="lang-en text-base leading-7 text-[#1A2B3C]">
+              <strong>Master the theory of business communication and apply it in practice</strong> through negotiations, technology exposure, and building connections in Russian companies.
+            </p>
+            <p class="lang-ru text-base leading-7 text-[#1A2B3C]">
+              <strong>Освойте теорию делового общения и примените её на практике</strong> через переговоры, знакомство с технологиями и создание связей в российских компаниях.
+            </p>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div>
+                <p class="lang-en text-xs font-bold uppercase tracking-[.12em] text-[#C5A059]">Theory</p>
+                <p class="lang-en text-sm leading-6 text-[#4A5568]">Business etiquette, grammar, cultural psychology, glossary, key phrases</p>
+                <p class="lang-ru text-xs font-bold uppercase tracking-[.12em] text-[#C5A059]">Теория</p>
+                <p class="lang-ru text-sm leading-6 text-[#4A5568]">Деловой этикет, грамматика, культурная психология, глоссарий, опорные фразы</p>
+              </div>
+              <div>
+                <p class="lang-en text-xs font-bold uppercase tracking-[.12em] text-[#C5A059]">Practice</p>
+                <p class="lang-en text-sm leading-6 text-[#4A5568]">Negotiations, technology tour, networking with Russian companies</p>
+                <p class="lang-ru text-xs font-bold uppercase tracking-[.12em] text-[#C5A059]">Практика</p>
+                <p class="lang-ru text-sm leading-6 text-[#4A5568]">Переговоры, экскурсия по технологиям, нетворкинг в российских компаниях</p>
+              </div>
+            </div>
+            <div class="mt-4 border-l-2 border-[#C5A059] pl-4">
+              <p class="lang-en text-sm font-semibold text-[#1A2B3C]"> August 28, 2026 · PENETRON-RUSSIA · 1500 RUB · Only 10 spots</p>
+              <p class="lang-ru text-sm font-semibold text-[#1A2B3C]">28 августа 2026 · ПЕНЕТРОН-РОССИЯ · 1500 рублей · Всего 10 мест</p>
+            </div>
+            <a href="https://docs.google.com/forms/d/1LnZ3Odrc3856wajcLvwkdRV__eGFo95aEKpYwIbeCPU/viewform" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-3 bg-[#C5A059] px-6 py-4 text-xs font-bold uppercase tracking-[.14em] text-[#1A2B3C] hover:bg-[#B8944A] transition-colors">
+              <span class="lang-en">Register Now</span>
+              <span class="lang-ru">Записаться сейчас</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- CONTACT -->
+    <section id="contact" class="bg-[#F8F9FA] py-20 lg:py-28">
+      <div class="reveal mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.78fr_1.22fr] lg:px-8">
+        <div>
+          <p class="lang-en text-xs font-bold uppercase tracking-[.2em] text-[#C5A059]">Begin the conversation</p>
+          <p class="lang-ru text-xs font-bold uppercase tracking-[.15em] text-[#C5A059]">Начните разговор</p>
+          <h2 class="serif lang-en mt-4 text-4xl font-medium text-[#1A2B3C]">Contact Me</h2>
+          <h2 class="serif lang-ru mt-4 text-4xl font-medium text-[#1A2B3C]">Контакты</h2>
+          <p class="lang-en mt-6 max-w-md leading-7 text-[#4A5568]">Tell me about your goals, team, or upcoming transition to Russia. I will respond personally.</p>
+          <p class="lang-ru mt-6 max-w-md leading-7 text-[#4A5568]">Расскажите о ваших целях, команде или предстоящем переезде в Россию. Я отвечу лично.</p>
+          <div class="mt-9 space-y-5">
+            <a href="tel:+79126351177" class="flex items-center gap-3 text-sm font-semibold text-[#1A2B3C]">
+              <svg class="h-5 w-5 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 912 635 11 77
+            </a>
+            <a href="mailto:morozovanna@list.ru" class="flex items-center gap-3 text-sm font-semibold text-[#1A2B3C]">
+              <svg class="h-5 w-5 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              morozovanna@list.ru
+            </a>
+          </div>
+        </div>
+        <form id="contact-form" class="border border-slate-200 bg-white p-7 lg:p-9">
+          <div class="grid gap-5 md:grid-cols-2">
+            <div>
+              <label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-name">Name</label>
+              <label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-name">Имя</label>
+              <input id="contact-name" class="input-field" type="text">
+            </div>
+            <div>
+              <label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-email">Email</label>
+              <label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-email">Электронная почта</label>
+              <input id="contact-email" class="input-field" type="email">
+            </div>
+            <div class="md:col-span-2">
+              <label class="lang-en mb-2 block text-xs font-bold uppercase tracking-[.12em] text-[#1A2B3C]" for="contact-message">How can I help?</label>
+              <label class="lang-ru mb-2 block text-xs font-bold uppercase tracking-[.1em] text-[#1A2B3C]" for="contact-message">Чем я могу помочь?</label>
+              <textarea id="contact-message" class="input-field" rows="5"></textarea>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center gap-4">
+            <button class="cta lang-en bg-[#1A2B3C] px-6 py-4 text-xs font-bold uppercase tracking-[.13em] text-white" type="submit">Send enquiry</button>
+            <button class="cta lang-ru bg-[#1A2B3C] px-6 py-4 text-xs font-bold uppercase tracking-[.1em] text-white" type="submit">Отправить запрос</button>
+            <p id="contact-status" class="status-message text-sm text-[#4A5568]"></p>
+          </div>
+        </form>
+      </div>
+    </section>
 
-<!-- FOOTER -->
-<footer class="bg-[#1A2B3C]">
-<div class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-9 text-xs text-slate-300 md:flex-row md:items-center md:justify-between lg:px-8">
-<p class="lang-en">Copyright © Anna Shaimardanova. All rights reserved.</p>
-<p class="lang-ru">Авторское право © Анна Шаймарданова. Все права защищены.</p>
-<a class="font-semibold text-[#C5A059]" href="mailto:codeflm8@gmail.com">Created by Lubomba Muleya - FLMcode · WhatsApp: +260 776 050 448 / +7 902 448 8020</a>
-</div>
-</footer>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#1A2B3C]">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-9 text-xs text-slate-300 md:flex-row md:items-center md:justify-between lg:px-8">
+      <p class="lang-en">Copyright © Anna Shaimardanova. All rights reserved.</p>
+      <p class="lang-ru">Авторское право © Анна Шаймарданова. Все права защищены.</p>
+      <a class="font-semibold text-[#C5A059]" href="mailto:codeflm8@gmail.com">Created by Lubomba Muleya - FLMcode · WhatsApp: +260 776 050 448 / +7 902 448 8020</a>
+    </div>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <button id="scroll-top" type="button" aria-label="Scroll to top">
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
 </div>
 
 <!-- TEMPLATES -->
 <template id="comment-template">
-<article class="border-l-2 border-[#C5A059] bg-[#F8F9FA] p-4">
-<p class="dynamic-comment-content text-sm leading-6 text-[#4A5568]"></p>
-<p class="dynamic-comment-author mt-2 text-xs font-bold text-[#1A2B3C]"></p>
-</article>
+  <article class="border-l-2 border-[#C5A059] bg-[#F8F9FA] p-4">
+    <p class="dynamic-comment-content text-sm leading-6 text-[#4A5568]"></p>
+    <p class="dynamic-comment-author mt-2 text-xs font-bold text-[#1A2B3C]"></p>
+  </article>
 </template>
 
 <!-- JAVASCRIPT -->
-<script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // =============================================
+  // LANGUAGE TOGGLE
+  // =============================================
+  const enBtn = document.getElementById('en-btn');
+  const ruBtn = document.getElementById('ru-btn');
+
+  function setLanguage(lang) {
+    document.querySelectorAll('.lang-en').forEach(el => el.style.display = (lang === 'en') ? 'block' : 'none');
+    document.querySelectorAll('.lang-ru').forEach(el => el.style.display = (lang === 'ru') ? 'block' : 'none');
+    enBtn.classList.toggle('language-active', lang === 'en');
+    enBtn.classList.toggle('language-inactive', lang !== 'en');
+    ruBtn.classList.toggle('language-active', lang === 'ru');
+    ruBtn.classList.toggle('language-inactive', lang !== 'ru');
+  }
+
+  enBtn.addEventListener('click', function() { setLanguage('en'); });
+  ruBtn.addEventListener('click', function() { setLanguage('ru'); });
+  setLanguage('en');
+
+  // =============================================
+  // HEART BUTTON - FIXED (no Lucide dependency)
+  // =============================================
+  document.querySelectorAll('.like-button').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+
+      const countSpan = this.querySelector('.like-count');
+      const heartIcon = this.querySelector('.heart-icon');
+      let count = parseInt(countSpan.textContent, 10);
+
+      if (this.classList.contains('liked')) {
+        this.classList.remove('liked');
+        count -= 1;
+        // Set empty heart
+        if (heartIcon) {
+          heartIcon.setAttribute('fill', 'none');
+          heartIcon.setAttribute('stroke', 'currentColor');
+        }
+      } else {
+        this.classList.add('liked');
+        count += 1;
+        // Set filled heart
+        if (heartIcon) {
+          heartIcon.setAttribute('fill', '#e74c3c');
+          heartIcon.setAttribute('stroke', '#e74c3c');
+        }
+      }
+      countSpan.textContent = count;
+    });
+  });
+
+  // =============================================
+  // COMMENT TOGGLE
+  // =============================================
+  document.querySelectorAll('[data-comment-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const postId = this.getAttribute('data-comment-toggle');
+      const form = document.querySelector('[data-comment-form="' + postId + '"]');
+      if (form) {
+        form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+      }
+    });
+  });
+
+  document.querySelectorAll('.comment-box').forEach(function(form) {
+    form.style.display = 'none';
+  });
+
+  // =============================================
+  // COMMENT SUBMIT
+  // =============================================
+  document.querySelectorAll('[data-comment-form]').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const postId = this.getAttribute('data-comment-form');
+      const nameInput = this.querySelector('input[type="text"]');
+      const contentInput = this.querySelector('textarea');
+      const name = nameInput ? nameInput.value.trim() || 'Anonymous' : 'Anonymous';
+      const content = contentInput ? contentInput.value.trim() : '';
+
+      if (!content) return;
+
+      const template = document.getElementById('comment-template');
+      const clone = template.content.cloneNode(true);
+      clone.querySelector('.dynamic-comment-content').textContent = content;
+      clone.querySelector('.dynamic-comment-author').textContent = '— ' + name;
+
+      const commentsContainer = document.querySelector('[data-comments="' + postId + '"]');
+      if (commentsContainer) {
+        commentsContainer.appendChild(clone);
+      }
+
+      this.reset();
+      this.style.display = 'none';
+
+      const feedback = this.querySelector('.form-feedback');
+      if (feedback) {
+        feedback.textContent = '✅ Comment added!';
+        feedback.style.color = '#2d7d46';
+        setTimeout(function() { feedback.textContent = ''; }, 3000);
+      }
+    });
+  });
+
+  // =============================================
+  // SCROLL REVEAL
+  // =============================================
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealElements.forEach(function(el) { revealObserver.observe(el); });
+
+  // =============================================
+  // SCROLL TOP BUTTON
+  // =============================================
+  const scrollBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', function() {
+    scrollBtn.classList.toggle('show', window.scrollY > 500);
+  });
+  scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // =============================================
+  // CONTACT FORM
+  // =============================================
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const status = document.getElementById('contact-status');
+      status.textContent = '✅ Message sent! I\'ll get back to you soon.';
+      status.style.color = '#2d7d46';
+      this.reset();
+      setTimeout(function() { status.textContent = ''; }, 5000);
+    });
+  }
+
+  console.log('✅ Website loaded successfully!');
+});
+</script>
+
 </body>
 </html>
